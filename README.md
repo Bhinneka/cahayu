@@ -1,5 +1,5 @@
 
-## Cahayu, a basic structure app using SparkJava http://sparkjava.com
+## Cahayu, a basic structure app using SparkJava http://sparkjava.com with Clean Architecture recipe
 
 ## Getting started
 
