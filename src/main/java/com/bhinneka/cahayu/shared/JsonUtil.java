@@ -14,8 +14,8 @@ import java.io.StringWriter;
  *
  * @author wurianto
  */
-
 public class JsonUtil {
+
     public static String dataToJson(Object data) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -26,5 +26,11 @@ public class JsonUtil {
         } catch (IOException e) {
             throw new RuntimeException("IOEXception while mapping object (" + data + ") to JSON");
         }
+    }
+
+    public static <T> T jsonToData(Class<T> valueType, byte[] input) throws IOException  {
+        ObjectMapper mapper = new ObjectMapper();
+        T t = mapper.readValue(input, valueType);
+        return t;
     }
 }
