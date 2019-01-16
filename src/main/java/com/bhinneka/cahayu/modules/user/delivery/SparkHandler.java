@@ -8,6 +8,7 @@ package com.bhinneka.cahayu.modules.user.delivery;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 
 /**
  *
@@ -15,7 +16,13 @@ import spark.Route;
  */
 public class SparkHandler {
     
-    public static Route index = (Request req, Response res) -> {
+    private final IUserUsecase userUsecase;
+    
+    public SparkHandler(IUserUsecase userUsecase) {
+        this.userUsecase = userUsecase;
+    }
+    
+    public Route index = (Request req, Response res) -> {
         return "index";
     };
     

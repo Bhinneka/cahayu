@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author wurianto
  */
-public interface UserUsecase {
+public interface IUserUsecase {
     
     public User createUser(User u);
     public User updateUser(User u, String id);
