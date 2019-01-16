@@ -9,6 +9,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
+import com.bhinneka.cahayu.shared.JsonUtil;
 
 /**
  *
@@ -22,8 +23,13 @@ public class SparkHandler {
         this.userUsecase = userUsecase;
     }
     
-    public Route index = (Request req, Response res) -> {
-        return "index";
-    };
+    public Route index() {
+        return (Request req, Response res) -> {
+            res.status(200);
+            res.header("Content-Type", "application/json");
+            return JsonUtil.dataToJson(userUsecase.getAllUser());
+        };
+    }
+    
     
 }
