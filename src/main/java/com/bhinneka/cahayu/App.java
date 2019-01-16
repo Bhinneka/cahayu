@@ -11,8 +11,10 @@ public class App {
     
     public static void main( String[] args ){
         Dotenv dotenv = Dotenv.load();
-        System.out.println(dotenv.get("PORT"));
+        int port = Integer.parseInt(dotenv.get("PORT"));
+        Spark.port(port);
         
         Spark.get("/", new IndexRoute());
+        
     }
 }
