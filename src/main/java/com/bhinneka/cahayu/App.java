@@ -37,6 +37,7 @@ public class App {
         
         Spark.get("/", new IndexRoute());
         Spark.get("/users", userSparkHandler.index());
+        Spark.post("/users", userSparkHandler.addUser());
         
     }
 }
