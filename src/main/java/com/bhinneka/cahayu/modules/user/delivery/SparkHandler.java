@@ -10,6 +10,7 @@ import spark.Response;
 import spark.Route;
 import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 import com.bhinneka.cahayu.shared.JsonUtil;
+import org.eclipse.jetty.http.HttpStatus;
 
 /**
  *
@@ -25,7 +26,7 @@ public class SparkHandler {
     
     public Route index() {
         return (Request req, Response res) -> {
-            res.status(200);
+            res.status(HttpStatus.OK_200);
             res.header("Content-Type", "application/json");
             return JsonUtil.dataToJson(userUsecase.getAllUser());
         };
