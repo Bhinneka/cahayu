@@ -18,26 +18,36 @@ import junit.framework.TestSuite;
  *
  * @author wurianto
  */
-public class JsonUtilTest extends TestCase{
-    
+public class JsonUtilTest extends TestCase {
+
     public JsonUtilTest(String testName) {
         super(testName);
     }
-    
+
     public static Test suite() {
         return new TestSuite(JsonUtilTest.class);
     }
-    
-    public void testJsonUtil() {
-        String jsonString = "{ \"id\": \"USR002\",  \"firstName\": \"James\", \"lastName\": \"Gosling\",  \"email\": \"james@bhinneka.com\"}"; 
+
+    public void testJsonToObject() {
+        String jsonString = "{ \"id\": \"USR002\",  \"firstName\": \"James\", \"lastName\": \"Gosling\",  \"email\": \"james@bhinneka.com\"}";
         try {
             User u = JsonUtil.jsonToData(User.class, jsonString.getBytes());
             String expectedFirstName = "James";
-            
+
             assertEquals(expectedFirstName, u.getFirstName());
         } catch (IOException ex) {
             Logger.getLogger(JsonUtilTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void testObjectToJson() {
+        User u = new User("USR1", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com");
+
+        String jsonResult = JsonUtil.dataToJson(u);
+
+        boolean expectedJsonResult = jsonResult.contains("Wuriyanto");
+
+        assertTrue(expectedJsonResult);
+    }
+
 }
