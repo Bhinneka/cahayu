@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author wurianto
  */
-public interface UserRepository {
+public interface IUserRepository {
     
     public User save(User u);
     public User findById(String id);

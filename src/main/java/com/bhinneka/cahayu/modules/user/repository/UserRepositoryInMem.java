@@ -6,6 +6,7 @@
 package com.bhinneka.cahayu.modules.user.repository;
 
 import com.bhinneka.cahayu.modules.user.model.User;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +14,10 @@ import java.util.Map;
  *
  * @author wurianto
  */
-public class UserRepositoryInMem implements UserRepository{
-    
+public class UserRepositoryInMem implements IUserRepository {
+
     private final Map<String, User> db;
-    
+
     public UserRepositoryInMem(Map<String, User> db) {
         this.db = db;
     }
@@ -34,12 +35,18 @@ public class UserRepositoryInMem implements UserRepository{
 
     @Override
     public User findByEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        User user = null;
+        for (User u : this.db.values()) {
+            if (u.getEmail().equals(email)) {
+                user = u;
+            }
+        }
+        return user;
     }
 
     @Override
     public List<User> findAll() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ArrayList<>(db.values());
     }
-    
+
 }
