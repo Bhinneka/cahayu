@@ -28,7 +28,7 @@ public class SparkHandler {
     public Route index() {
         return (Request req, Response res) -> {
             res.status(HttpStatus.OK_200);
-            res.header("Content-Type", "application/json");
+
             return JsonUtil.dataToJson(userUsecase.getAllUser());
         };
     }
@@ -36,7 +36,7 @@ public class SparkHandler {
     public Route addUser() {
         return (Request req, Response res) -> {
             res.status(HttpStatus.CREATED_201);
-            res.header("Content-Type", "application/json");
+
             byte[] body = req.bodyAsBytes();
             User u = JsonUtil.jsonToData(User.class, body);
             this.userUsecase.createUser(u);
