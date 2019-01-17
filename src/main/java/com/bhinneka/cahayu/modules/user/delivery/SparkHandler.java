@@ -5,6 +5,8 @@
  */
 package com.bhinneka.cahayu.modules.user.delivery;
 
+import com.bhinneka.cahayu.CustomResponse;
+import com.bhinneka.cahayu.EmptyJson;
 import com.bhinneka.cahayu.modules.user.model.User;
 import spark.Request;
 import spark.Response;
@@ -12,12 +14,14 @@ import spark.Route;
 import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 import com.bhinneka.cahayu.shared.JsonUtil;
 import org.eclipse.jetty.http.HttpStatus;
+import spark.RouteGroup;
+import spark.Spark;
 
 /**
  *
  * @author wurianto
  */
-public class SparkHandler {
+public class SparkHandler implements RouteGroup {
 
     private final IUserUsecase userUsecase;
 
@@ -29,15 +33,17 @@ public class SparkHandler {
         return (Request req, Response res) -> {
             res.status(HttpStatus.OK_200);
 
-            return JsonUtil.dataToJson(userUsecase.getAllUser());
+            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, this.userUsecase.getAllUser(), "get all users"));
         };
     }
-    
+
     public Route me() {
         return (Request req, Response res) -> {
             res.status(HttpStatus.OK_200);
 
-            return "me";
+            User u = this.userUsecase.me("USR001");
+
+            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u, "its me"));
         };
     }
 
@@ -48,10 +54,15 @@ public class SparkHandler {
             byte[] body = req.bodyAsBytes();
             User u = JsonUtil.jsonToData(User.class, body);
             this.userUsecase.createUser(u);
-            return JsonUtil.dataToJson(u);
+            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.CREATED_201, true, u, "add me"));
         };
     }
-    
-    
+
+    @Override
+    public void addRoutes() {
+        Spark.get("", index());
+        Spark.post("", addUser());
+        Spark.get("/me", me());
+    }
 
 }
