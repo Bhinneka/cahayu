@@ -15,10 +15,10 @@ import java.util.Map;
  * @param <T>
  * @param <K>
  */
-public class BaseRepositoryInMem<T, K> implements IBaseRepository<T, K>{
-    
+public class BaseRepositoryInMem<T, K> implements IBaseRepository<T, K> {
+
     private final Map<K, T> db;
-    
+
     public BaseRepositoryInMem(Map<K, T> db) {
         this.db = db;
     }
@@ -38,11 +38,10 @@ public class BaseRepositoryInMem<T, K> implements IBaseRepository<T, K>{
     public T findById(K id) {
         return this.db.get(id);
     }
-    
-    
+
     @Override
     public List<T> findAll() {
         return new ArrayList<>(db.values());
     }
-    
+
 }
