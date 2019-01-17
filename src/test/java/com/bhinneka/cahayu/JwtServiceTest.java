@@ -66,7 +66,7 @@ public class JwtServiceTest extends TestCase {
     }
 
     public void testValidateJWT() {
-
+        assertTrue(true);
     }
 
 }
