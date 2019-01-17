@@ -5,6 +5,9 @@
  */
 package com.bhinneka.cahayu.filters;
 
+import com.bhinneka.cahayu.CustomResponse;
+import com.bhinneka.cahayu.EmptyJson;
+import com.bhinneka.cahayu.shared.JsonUtil;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Filter;
 import spark.Request;
@@ -21,7 +24,7 @@ public class JwtFilters implements Filter{
     public void handle(Request req, Response res) throws Exception {
         String authorization = req.headers("Authorization");
         if(authorization == null) {
-            Spark.halt(HttpStatus.UNAUTHORIZED_401, "authorization is required");
+            Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "authorization is required")));
         }
         System.out.println("AUTH : "+authorization);
     }
