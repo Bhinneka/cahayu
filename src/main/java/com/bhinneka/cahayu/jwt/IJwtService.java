@@ -12,4 +12,6 @@ package com.bhinneka.cahayu.jwt;
 public interface IJwtService {
 
     public String generate(CustomClaim claim);
+
+    public CustomClaim validate(String jwt);
 }
