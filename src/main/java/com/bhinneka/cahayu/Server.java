@@ -36,6 +36,7 @@ public class Server {
         // set filters
         Spark.before("/users", Filters.setJsonHeader());
         Spark.before("/users/me", new JwtFilters());
+        Spark.notFound(new NotFoundRoute());
         
         // user module
         Map<String, User> db = new HashMap<>();
