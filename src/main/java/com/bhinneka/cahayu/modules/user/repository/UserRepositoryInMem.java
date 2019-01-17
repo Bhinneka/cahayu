@@ -5,38 +5,21 @@
  */
 package com.bhinneka.cahayu.modules.user.repository;
 
+import com.bhinneka.cahayu.modules.repository.BaseRepositoryInMem;
 import com.bhinneka.cahayu.modules.user.model.User;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
  *
  * @author wurianto
  */
-public class UserRepositoryInMem implements IUserRepository {
+public class UserRepositoryInMem extends BaseRepositoryInMem<User, String> implements IUserRepository {
 
     private final Map<String, User> db;
 
     public UserRepositoryInMem(Map<String, User> db) {
+        super(db);
         this.db = db;
-    }
-
-    @Override
-    public User save(User u) {
-        this.db.put(u.getId(), u);
-        return u;
-    }
-
-    @Override
-    public User delete(String id) {
-        User u = this.db.remove(id);
-        return u;
-    }
-
-    @Override
-    public User findById(String id) {
-        return this.db.get(id);
     }
 
     @Override
@@ -48,11 +31,6 @@ public class UserRepositoryInMem implements IUserRepository {
             }
         }
         return user;
-    }
-
-    @Override
-    public List<User> findAll() {
-        return new ArrayList<>(db.values());
     }
 
 }
