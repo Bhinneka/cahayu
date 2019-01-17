@@ -32,6 +32,14 @@ public class SparkHandler {
             return JsonUtil.dataToJson(userUsecase.getAllUser());
         };
     }
+    
+    public Route me() {
+        return (Request req, Response res) -> {
+            res.status(HttpStatus.OK_200);
+
+            return "me";
+        };
+    }
 
     public Route addUser() {
         return (Request req, Response res) -> {
@@ -43,5 +51,7 @@ public class SparkHandler {
             return JsonUtil.dataToJson(u);
         };
     }
+    
+    
 
 }
