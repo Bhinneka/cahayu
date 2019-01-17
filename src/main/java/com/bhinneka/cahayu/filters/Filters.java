@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bhinneka.cahayu.shared;
+package com.bhinneka.cahayu.filters;
 
 import spark.Filter;
 import spark.Request;
