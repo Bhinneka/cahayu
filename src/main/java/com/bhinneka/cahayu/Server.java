@@ -11,7 +11,8 @@ import com.bhinneka.cahayu.modules.user.repository.IUserRepository;
 import com.bhinneka.cahayu.modules.user.repository.UserRepositoryInMem;
 import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 import com.bhinneka.cahayu.modules.user.usecase.UserUsecaseImpl;
-import com.bhinneka.cahayu.shared.Filters;
+import com.bhinneka.cahayu.filters.Filters;
+import com.bhinneka.cahayu.filters.JwtFilters;
 import java.util.HashMap;
 import java.util.Map;
 import spark.Spark;
@@ -34,6 +35,7 @@ public class Server {
         
         // set filters
         Spark.before("/users", Filters.setJsonHeader());
+        Spark.before("/users/me", new JwtFilters());
         
         // user module
         Map<String, User> db = new HashMap<>();
@@ -49,6 +51,7 @@ public class Server {
         Spark.get("/", new IndexRoute());
         Spark.get("/users", userSparkHandler.index());
         Spark.post("/users", userSparkHandler.addUser());
+        Spark.get("/users/me", userSparkHandler.me());
     }
     
     
