@@ -29,7 +29,7 @@ public class JwtServiceTest extends TestCase {
     }
 
     public static Test suite() {
-        return new TestSuite(AppTest.class);
+        return new TestSuite(JwtServiceTest.class);
     }
 
     /**
@@ -54,11 +54,19 @@ public class JwtServiceTest extends TestCase {
 
         String jwtToken = jwtService.generate(new CustomClaim("001", "bhinneka.com", "my-service", cal.getTime()));
 
+        jwtToken = "Bearer " + jwtToken;
+
         String expectedSub = "001";
 
         CustomClaim cc = jwtService.validate(jwtToken);
 
+        assertNotNull(cc);
+
         assertEquals(expectedSub, cc.getSubject());
+    }
+
+    public void testValidateJWT() {
+
     }
 
 }
