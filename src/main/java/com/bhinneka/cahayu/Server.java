@@ -22,38 +22,40 @@ import spark.Spark;
  * @author wurianto
  */
 public class Server {
-    
+
     private final int port;
-    
+
     public Server(int port) {
         this.port = port;
     }
-    
+
     public void start() {
         //set custom port
         Spark.port(port);
-        
+
         // set filters
-        Spark.before("/users", Filters.setJsonHeader());
-        Spark.before("/users/me", new JwtFilters());
         Spark.notFound(new NotFoundRoute());
-        
+
         // user module
-        Map<String, User> db = new HashMap<>();
-        db.put("USR001", new User("USR001", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com"));
-        db.put("USR002", new User("USR002", "James", "Gosling", "james@bhinneka.com"));
-        
-        IUserRepository userRepository = new UserRepositoryInMem(db);
+        Map<String, User> userDb = new HashMap<>();
+        userDb.put("USR001", new User("USR001", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com"));
+        userDb.put("USR002", new User("USR002", "James", "Gosling", "james@bhinneka.com"));
+
+        IUserRepository userRepository = new UserRepositoryInMem(userDb);
         IUserUsecase userUsecase = new UserUsecaseImpl(userRepository);
-        
+
         //user handler
         SparkHandler userSparkHandler = new SparkHandler(userUsecase);
-        
+
         Spark.get("/", new IndexRoute());
-        Spark.get("/users", userSparkHandler.index());
-        Spark.post("/users", userSparkHandler.addUser());
-        Spark.get("/users/me", userSparkHandler.me());
+
+        // path api
+        Spark.path("/api", () -> {
+            Spark.before("/*", Filters.setJsonHeader());
+            Spark.before("/users/me", new JwtFilters());
+
+            Spark.path("/users", userSparkHandler);
+        });
     }
-    
-    
+
 }
