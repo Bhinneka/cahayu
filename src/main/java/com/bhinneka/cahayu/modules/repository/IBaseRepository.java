@@ -14,7 +14,7 @@ import java.util.List;
  * @param <T>
  * @param <K>
  */
-public interface IGenericRepository<T, K> {
+public interface IBaseRepository<T, K> {
 
     public T save(T t);
 
