@@ -29,6 +29,12 @@ public class UserRepositoryInMem implements IUserRepository {
     }
 
     @Override
+    public User delete(String id) {
+        User u = this.db.remove(id);
+        return u;
+    }
+
+    @Override
     public User findById(String id) {
         return this.db.get(id);
     }

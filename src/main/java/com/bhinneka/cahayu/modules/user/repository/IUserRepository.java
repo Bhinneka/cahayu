@@ -19,6 +19,9 @@ public interface IUserRepository extends IGenericRepository<User, String> {
     public User save(User u);
 
     @Override
+    public User delete(String id);
+
+    @Override
     public User findById(String id);
 
     public User findByEmail(String email);
