@@ -13,10 +13,10 @@ import java.util.List;
  *
  * @author wurianto
  */
-public class UserUsecaseImpl implements IUserUsecase{
-    
+public class UserUsecaseImpl implements IUserUsecase {
+
     private final IUserRepository userRepository;
-    
+
     public UserUsecaseImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -35,8 +35,13 @@ public class UserUsecaseImpl implements IUserUsecase{
     }
 
     @Override
+    public User me(String id) {
+        return this.userRepository.findById(id);
+    }
+
+    @Override
     public List<User> getAllUser() {
         return this.userRepository.findAll();
     }
-    
+
 }
