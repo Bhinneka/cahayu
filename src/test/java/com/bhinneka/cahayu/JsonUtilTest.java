@@ -41,7 +41,7 @@ public class JsonUtilTest extends TestCase {
     }
 
     public void testObjectToJson() {
-        User u = new User("USR1", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com");
+        User u = new User("USR1", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345");
 
         String jsonResult = JsonUtil.dataToJson(u);
 
