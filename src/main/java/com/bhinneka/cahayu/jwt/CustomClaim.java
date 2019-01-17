@@ -17,6 +17,9 @@ public class CustomClaim {
     private String issuer;
     private String audience;
     private Date expiration;
+    private Date issuedAt;
+    private Date notBefore;
+    private String id;
 
     public CustomClaim() {
 
@@ -60,5 +63,36 @@ public class CustomClaim {
     public void setExpiration(Date expiration) {
         this.expiration = expiration;
     }
+
+    public Date getIssuedAt() {
+        return issuedAt;
+    }
+
+    public void setIssuedAt(Date issuedAt) {
+        this.issuedAt = issuedAt;
+    }
+
+    public Date getNotBefore() {
+        return notBefore;
+    }
+
+    public void setNotBefore(Date notBefore) {
+        this.notBefore = notBefore;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomClaim{" + "subject=" + subject + ", issuer=" + issuer + ", audience=" + audience + ", expiration=" + expiration + ", issuedAt=" + issuedAt + ", notBefore=" + notBefore + ", id=" + id + '}';
+    }
+    
+    
 
 }
