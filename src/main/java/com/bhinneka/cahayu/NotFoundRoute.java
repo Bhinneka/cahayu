@@ -5,6 +5,8 @@
  */
 package com.bhinneka.cahayu;
 
+import com.bhinneka.cahayu.modules.user.model.User;
+import com.bhinneka.cahayu.shared.JsonUtil;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
@@ -18,9 +20,9 @@ public class NotFoundRoute implements Route {
 
     @Override
     public Object handle(Request req, Response res) throws Exception {
-        res.status(HttpStatus.OK_200);
+        res.status(HttpStatus.NOT_FOUND_404);
         res.type("application/json");
-        return "{\"message\":\"route not found\"}";
+        return JsonUtil.dataToJson(new CustomResponse(HttpStatus.NOT_FOUND_404, false, new EmptyJson(), "route not found"));
     }
 
 }
