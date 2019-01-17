@@ -38,8 +38,8 @@ public class Server {
 
         // user module
         Map<String, User> userDb = new HashMap<>();
-        userDb.put("USR001", new User("USR001", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com"));
-        userDb.put("USR002", new User("USR002", "James", "Gosling", "james@bhinneka.com"));
+        userDb.put("USR001", new User("USR001", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345"));
+        userDb.put("USR002", new User("USR002", "James", "Gosling", "james@bhinneka.com", "123456"));
 
         IUserRepository userRepository = new UserRepositoryInMem(userDb);
         IUserUsecase userUsecase = new UserUsecaseImpl(userRepository);
