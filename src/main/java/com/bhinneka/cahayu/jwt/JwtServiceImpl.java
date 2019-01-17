@@ -43,9 +43,16 @@ public class JwtServiceImpl implements IJwtService {
 
     @Override
     public CustomClaim validate(String jwt) {
-        CustomClaim cc;
+        CustomClaim cc = null;
+        String[] jwtSplit = jwt.split(" ");
+        if(jwtSplit.length < 2 || jwtSplit.length > 2) {
+            return null;
+        }
+
+        String token = jwtSplit[1];
+
         try {
-            Claims c = Jwts.parser().setSigningKey(this.publicKey).parseClaimsJws(jwt).getBody();
+            Claims c = Jwts.parser().setSigningKey(this.publicKey).parseClaimsJws(token).getBody();
             cc = new CustomClaim(c.getSubject(), c.getIssuer(), c.getAudience(), c.getExpiration());
             cc.setIssuedAt(c.getIssuedAt());
             cc.setNotBefore(c.getNotBefore());
