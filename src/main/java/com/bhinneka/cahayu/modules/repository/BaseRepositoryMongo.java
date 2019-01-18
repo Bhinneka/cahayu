@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import java.util.List;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  *
@@ -44,9 +45,9 @@ public class BaseRepositoryMongo<T extends Object, K> implements IBaseRepository
     @Override
     public List<T> findAll() {
         List<T> list = new ArrayList<>();
-        this.collection.find().forEach(new Block<T>() {
+        this.collection.find().forEach(new Consumer<T>() {
             @Override
-            public void apply(T t) {
+            public void accept(T t) {
                 list.add(t);
             }
         });
