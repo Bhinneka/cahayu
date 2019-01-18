@@ -5,7 +5,6 @@
  */
 package com.bhinneka.cahayu;
 
-import com.bhinneka.cahayu.modules.user.model.User;
 import com.bhinneka.cahayu.shared.JsonUtil;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
