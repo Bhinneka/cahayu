@@ -62,9 +62,13 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+        <!-- mongo db-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>3.9.1</version>
+        </dependency>
 
-
-   
     </dependencies>
     <build>
         <plugins>
