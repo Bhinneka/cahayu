@@ -8,8 +8,8 @@ package com.bhinneka.cahayu.modules.user.repository;
 import com.bhinneka.cahayu.modules.repository.BaseRepositoryMongo;
 import com.bhinneka.cahayu.modules.user.model.User;
 import com.mongodb.client.MongoCollection;
-import static com.mongodb.client.model.Filters.eq;
 import org.bson.types.ObjectId;
+import static com.mongodb.client.model.Filters.eq;
 
 /**
  *
