@@ -55,8 +55,7 @@ public class UserUsecaseImpl implements IUserUsecase {
     public Jwt login(User u) {
         Jwt result;
         User logged = this.userRepository.findByEmail(u.getEmail());
-
-        if (logged != null || !logged.validatePassword(u.getPassword())) {
+        if (logged == null || !logged.validatePassword(u.getPassword())) {
             result = null;
         } else {
 

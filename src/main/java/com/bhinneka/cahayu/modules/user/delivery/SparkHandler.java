@@ -63,17 +63,17 @@ public class SparkHandler implements RouteGroup {
     public Route login() {
         return (Request req, Response res) -> {
             byte[] body = req.bodyAsBytes();
-            User u = JsonUtil.jsonToData(User.class, body);
+            UserDto u = JsonUtil.jsonToData(UserDto.class, body);
             if (u.getEmail().isEmpty() || u.getPassword().isEmpty()) {
                 Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
             }
             
-            Jwt jwt = this.userUsecase.login(u);
+            Jwt jwt = this.userUsecase.login(u.toModel());
             if(jwt == null){
                 Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
             }
 
-            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u.toJwtDto(jwt), "login success"));
+            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u.toModel().toJwtDto(jwt), "login success"));
         };
     }
 
