@@ -7,6 +7,7 @@ package com.bhinneka.cahayu.modules.user.model;
 
 import com.bhinneka.cahayu.modules.user.dto.JwtDto;
 import com.bhinneka.cahayu.modules.user.dto.UserDto;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,7 +15,7 @@ import com.bhinneka.cahayu.modules.user.dto.UserDto;
  */
 public class User {
 
-    private String id;
+    private ObjectId id;
     private String firstName;
     private String lastName;
     private String email;
@@ -24,7 +25,14 @@ public class User {
 
     }
 
-    public User(String id, String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(ObjectId id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,11 +40,11 @@ public class User {
         this.password = password;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -77,11 +85,11 @@ public class User {
     }
 
     public UserDto toDto() {
-        return new UserDto(this.id, this.firstName, this.lastName, this.email, null);
+        return new UserDto(this.id.toString(), this.firstName, this.lastName, this.email, null);
     }
 
     public JwtDto toJwtDto(Jwt jwt) {
-        return new JwtDto(jwt, new UserDto(this.id, this.firstName, this.lastName, this.email, null));
+        return new JwtDto(jwt, new UserDto(this.id.toString(), this.firstName, this.lastName, this.email, null));
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.bhinneka.cahayu.modules.user.repository.IUserRepository;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -34,7 +35,7 @@ public class UserUsecaseImpl implements IUserUsecase {
     }
 
     @Override
-    public User updateUser(User u, String id) {
+    public User updateUser(User u, ObjectId id) {
         User user = this.userRepository.findById(id);
         user.setFirstName(u.getFirstName());
         user.setLastName(u.getFirstName());
@@ -42,7 +43,7 @@ public class UserUsecaseImpl implements IUserUsecase {
     }
 
     @Override
-    public User me(String id) {
+    public User me(ObjectId id) {
         return this.userRepository.findById(id);
     }
 
@@ -69,7 +70,7 @@ public class UserUsecaseImpl implements IUserUsecase {
             cal.set(Calendar.MILLISECOND, 0);
 
             Date d = cal.getTime();
-            String jwtToken = jwtService.generate(new CustomClaim(logged.getId(), "bhinneka.com", "my-service", cal.getTime()));
+            String jwtToken = jwtService.generate(new CustomClaim(logged.getId().toString(), "bhinneka.com", "my-service", cal.getTime()));
             result = new Jwt("Bearer " + jwtToken);
         }
         return result;

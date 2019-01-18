@@ -72,7 +72,7 @@ public class UserDto {
     }
 
     public User toModel() {
-        return new User(this.id, this.firstName, this.lastName, this.email, this.password);
+        return new User(this.firstName, this.lastName, this.email, this.password);
     }
 
     @Override

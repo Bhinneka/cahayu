@@ -7,12 +7,13 @@ package com.bhinneka.cahayu.modules.user.repository;
 
 import com.bhinneka.cahayu.modules.user.model.User;
 import com.bhinneka.cahayu.modules.repository.IBaseRepository;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author wurianto
  */
-public interface IUserRepository extends IBaseRepository<User, String> {
+public interface IUserRepository extends IBaseRepository<User, ObjectId> {
 
     public User findByEmail(String email);
 

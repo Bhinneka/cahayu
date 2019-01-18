@@ -8,6 +8,7 @@ package com.bhinneka.cahayu.modules.user.usecase;
 import com.bhinneka.cahayu.modules.user.model.Jwt;
 import com.bhinneka.cahayu.modules.user.model.User;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -17,11 +18,11 @@ public interface IUserUsecase {
 
     public User createUser(User u);
 
-    public User updateUser(User u, String id);
+    public User updateUser(User u, ObjectId id);
 
     public Jwt login(User u);
 
-    public User me(String id);
+    public User me(ObjectId id);
 
     public List<User> getAllUser();
 

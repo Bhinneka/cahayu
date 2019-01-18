@@ -15,6 +15,7 @@ import spark.Response;
 import spark.Route;
 import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 import com.bhinneka.cahayu.shared.JsonUtil;
+import org.bson.types.ObjectId;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.RouteGroup;
 import spark.Spark;
@@ -43,7 +44,7 @@ public class SparkHandler implements RouteGroup {
         return (Request req, Response res) -> {
             res.status(HttpStatus.OK_200);
 
-            User u = this.userUsecase.me("USR001");
+            User u = this.userUsecase.me(new ObjectId("5c418087e86ddac693ffed90"));
 
             return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u, "its me"));
         };

@@ -8,16 +8,17 @@ package com.bhinneka.cahayu.modules.user.repository;
 import com.bhinneka.cahayu.modules.repository.BaseRepositoryInMem;
 import com.bhinneka.cahayu.modules.user.model.User;
 import java.util.Map;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author wurianto
  */
-public class UserRepositoryInMem extends BaseRepositoryInMem<User, String> implements IUserRepository {
+public class UserRepositoryInMem extends BaseRepositoryInMem<User, ObjectId> implements IUserRepository {
 
-    private final Map<String, User> db;
+    private final Map<ObjectId, User> db;
 
-    public UserRepositoryInMem(Map<String, User> db) {
+    public UserRepositoryInMem(Map<ObjectId, User> db) {
         super(db);
         this.db = db;
     }
