@@ -13,6 +13,9 @@ import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 import com.bhinneka.cahayu.modules.user.usecase.UserUsecaseImpl;
 import com.bhinneka.cahayu.filters.Filters;
 import com.bhinneka.cahayu.filters.JwtFilters;
+import com.bhinneka.cahayu.jwt.IJwtService;
+import com.bhinneka.cahayu.jwt.JwtServiceImpl;
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 import spark.Spark;
@@ -24,9 +27,13 @@ import spark.Spark;
 public class Server {
 
     private final int port;
+    private final Key privateKey;
+    private final Key publicKey;
 
-    public Server(int port) {
+    public Server(int port, Key privateKey, Key publicKey) {
         this.port = port;
+        this.privateKey = privateKey;
+        this.publicKey = publicKey;
     }
 
     public void start() {
@@ -41,8 +48,10 @@ public class Server {
         userDb.put("USR001", new User("USR001", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345"));
         userDb.put("USR002", new User("USR002", "James", "Gosling", "james@bhinneka.com", "123456"));
 
+        IJwtService jwtService = new JwtServiceImpl(this.privateKey, this.publicKey);
+
         IUserRepository userRepository = new UserRepositoryInMem(userDb);
-        IUserUsecase userUsecase = new UserUsecaseImpl(userRepository);
+        IUserUsecase userUsecase = new UserUsecaseImpl(userRepository, jwtService);
 
         //user handler
         SparkHandler userSparkHandler = new SparkHandler(userUsecase);
