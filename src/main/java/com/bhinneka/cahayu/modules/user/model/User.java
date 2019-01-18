@@ -7,6 +7,8 @@ package com.bhinneka.cahayu.modules.user.model;
 
 import com.bhinneka.cahayu.modules.user.dto.JwtDto;
 import com.bhinneka.cahayu.modules.user.dto.UserDto;
+import com.bhinneka.cahayu.shared.ObjectIdSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.bson.types.ObjectId;
 
 /**
@@ -15,6 +17,7 @@ import org.bson.types.ObjectId;
  */
 public class User {
 
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
     private String firstName;
     private String lastName;
