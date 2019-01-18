@@ -5,6 +5,9 @@
  */
 package com.bhinneka.cahayu.modules.user.model;
 
+import com.bhinneka.cahayu.modules.user.dto.JwtDto;
+import com.bhinneka.cahayu.modules.user.dto.UserDto;
+
 /**
  *
  * @author wurianto
@@ -68,9 +71,22 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public boolean validatePassword(String password) {
         return this.password.equals(password);
+    }
+
+    public UserDto toDto() {
+        return new UserDto(this.id, this.firstName, this.lastName, this.email, null);
+    }
+
+    public JwtDto toJwtDto(Jwt jwt) {
+        return new JwtDto(jwt, new UserDto(this.id, this.firstName, this.lastName, this.email, null));
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + '}';
     }
 
 }
