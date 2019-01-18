@@ -11,6 +11,11 @@ https://maven.apache.org/download.cgi
 $ mvn clean package
 ```
 
+- Start Mongo Db
+```shell
+$ docker-compose up
+```
+
 - Run `jar`
 ```shell
 $ java -jar target/Cahayu-1.0-SNAPSHOT.jar
