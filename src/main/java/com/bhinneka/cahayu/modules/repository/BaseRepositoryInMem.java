@@ -15,7 +15,7 @@ import java.util.Map;
  * @param <T>
  * @param <K>
  */
-public class BaseRepositoryInMem<T, K> implements IBaseRepository<T, K> {
+public class BaseRepositoryInMem<T extends Object, K> implements IBaseRepository<T, K> {
 
     private final Map<K, T> db;
 

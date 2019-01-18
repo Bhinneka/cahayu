@@ -14,7 +14,7 @@ import java.util.List;
  * @param <T>
  * @param <K>
  */
-public interface IBaseRepository<T, K> {
+public interface IBaseRepository<T extends Object, K> {
 
     public T save(T t);
 
