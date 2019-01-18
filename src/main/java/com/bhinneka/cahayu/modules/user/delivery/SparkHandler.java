@@ -7,6 +7,8 @@ package com.bhinneka.cahayu.modules.user.delivery;
 
 import com.bhinneka.cahayu.CustomResponse;
 import com.bhinneka.cahayu.EmptyJson;
+import com.bhinneka.cahayu.modules.user.dto.UserDto;
+import com.bhinneka.cahayu.modules.user.model.Jwt;
 import com.bhinneka.cahayu.modules.user.model.User;
 import spark.Request;
 import spark.Response;
@@ -52,9 +54,26 @@ public class SparkHandler implements RouteGroup {
             res.status(HttpStatus.CREATED_201);
 
             byte[] body = req.bodyAsBytes();
-            User u = JsonUtil.jsonToData(User.class, body);
-            this.userUsecase.createUser(u);
+            UserDto u = JsonUtil.jsonToData(UserDto.class, body);
+            this.userUsecase.createUser(u.toModel());
             return JsonUtil.dataToJson(new CustomResponse(HttpStatus.CREATED_201, true, u, "add me"));
+        };
+    }
+
+    public Route login() {
+        return (Request req, Response res) -> {
+            byte[] body = req.bodyAsBytes();
+            User u = JsonUtil.jsonToData(User.class, body);
+            if (u.getEmail().isEmpty() || u.getPassword().isEmpty()) {
+                Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
+            }
+            
+            Jwt jwt = this.userUsecase.login(u);
+            if(jwt == null){
+                Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
+            }
+
+            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u.toJwtDto(jwt), "login success"));
         };
     }
 
@@ -62,6 +81,7 @@ public class SparkHandler implements RouteGroup {
     public void addRoutes() {
         Spark.get("", index());
         Spark.post("", addUser());
+        Spark.post("/login", login());
         Spark.get("/me", me());
     }
 
