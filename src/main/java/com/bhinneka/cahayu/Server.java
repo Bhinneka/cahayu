@@ -9,7 +9,6 @@ import com.bhinneka.cahayu.database.MongoDb;
 import com.bhinneka.cahayu.modules.user.delivery.SparkHandler;
 import com.bhinneka.cahayu.modules.user.model.User;
 import com.bhinneka.cahayu.modules.user.repository.IUserRepository;
-import com.bhinneka.cahayu.modules.user.repository.UserRepositoryInMem;
 import com.bhinneka.cahayu.modules.user.usecase.IUserUsecase;
 import com.bhinneka.cahayu.modules.user.usecase.UserUsecaseImpl;
 import com.bhinneka.cahayu.filters.Filters;
@@ -17,7 +16,6 @@ import com.bhinneka.cahayu.filters.JwtFilters;
 import com.bhinneka.cahayu.jwt.IJwtService;
 import com.bhinneka.cahayu.jwt.JwtServiceImpl;
 import com.bhinneka.cahayu.modules.user.repository.UserRepositoryMongo;
-import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.security.Key;
@@ -33,6 +31,8 @@ import spark.Spark;
 public class Server {
 
     private final int port;
+    private String mongoDbConnectionString;
+    private String mongoDbDatabaseName;
     private final Key privateKey;
     private final Key publicKey;
 
@@ -55,8 +55,8 @@ public class Server {
         userDb.put(new ObjectId("5c418087e86ddac693ffed70"), new User(new ObjectId("5c418087e86ddac693ffed70"), "James", "Gosling", "james@bhinneka.com", "123456"));
 
         // mongodb
-        MongoDatabase md = MongoDb.getDb("mongodb://127.0.0.1:27017/cahayu", "cahayu");
-        MongoCollection<User> uc = md.getCollection("users", User.class);
+        MongoDatabase md = MongoDb.getDb(this.mongoDbConnectionString, this.mongoDbDatabaseName);
+        MongoCollection<User> uc = md.getCollection(MongoDb.USERS_COLLECTION, User.class);
 
         IJwtService jwtService = new JwtServiceImpl(this.privateKey, this.publicKey);
 
@@ -75,6 +75,14 @@ public class Server {
 
             Spark.path("/users", userSparkHandler);
         });
+    }
+
+    public void setMongoDbConnectionString(String mongoDbConnectionString) {
+        this.mongoDbConnectionString = mongoDbConnectionString;
+    }
+
+    public void setMongoDbDatabaseName(String mongoDbDatabaseName) {
+        this.mongoDbDatabaseName = mongoDbDatabaseName;
     }
 
 }

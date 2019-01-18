@@ -16,6 +16,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         Dotenv dotenv = Dotenv.load();
         int port = Integer.parseInt(dotenv.get("PORT"));
+        String mongoDbConnectionString = dotenv.get("MONGO_DB_HOST");
+        String mongoDbDatabaseName = dotenv.get("MONGO_DB_NAME");
 
         App app = new App();
 
@@ -34,6 +36,9 @@ public class App {
 //        Key publicKey = kp.getPublic();
 //
         Server server = new Server(port, privateKey, publicKey);
+        server.setMongoDbConnectionString(mongoDbConnectionString);
+        server.setMongoDbDatabaseName(mongoDbDatabaseName);
+                
         server.start();
     }
 }
