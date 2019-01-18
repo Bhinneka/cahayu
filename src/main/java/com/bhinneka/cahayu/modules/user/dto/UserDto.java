@@ -5,6 +5,8 @@
  */
 package com.bhinneka.cahayu.modules.user.dto;
 
+import com.bhinneka.cahayu.modules.user.model.User;
+
 /**
  *
  * @author wurianto
@@ -15,16 +17,18 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
 
     public UserDto() {
 
     }
 
-    public UserDto(String id, String firstName, String lastName, String email) {
+    public UserDto(String id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
     }
 
     public String getId() {
@@ -59,9 +63,21 @@ public class UserDto {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User toModel() {
+        return new User(this.id, this.firstName, this.lastName, this.email, this.password);
+    }
+
     @Override
     public String toString() {
-        return "UserDto{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
+        return "UserDto{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + '}';
     }
 
 }

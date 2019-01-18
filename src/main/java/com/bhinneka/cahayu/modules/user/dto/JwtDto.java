@@ -5,32 +5,36 @@
  */
 package com.bhinneka.cahayu.modules.user.dto;
 
+import com.bhinneka.cahayu.modules.user.model.Jwt;
+import com.fasterxml.jackson.annotation.JsonGetter;
+
 /**
  *
  * @author wurianto
  */
 public class JwtDto {
 
-    private String token;
+    private Jwt jwt;
     private UserDto userDto;
 
     public JwtDto() {
 
     }
 
-    public JwtDto(String token, UserDto userDto) {
-        this.token = token;
+    public JwtDto(Jwt jwt, UserDto userDto) {
+        this.jwt = jwt;
         this.userDto = userDto;
     }
 
-    public String getToken() {
-        return token;
+    public Jwt getJwt() {
+        return jwt;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setJwt(Jwt jwt) {
+        this.jwt = jwt;
     }
 
+    @JsonGetter("user")
     public UserDto getUserDto() {
         return userDto;
     }
@@ -41,7 +45,7 @@ public class JwtDto {
 
     @Override
     public String toString() {
-        return "JwtDto{" + "token=" + token + ", userDto=" + userDto + '}';
+        return "JwtDto{" + "jwt=" + jwt + ", userDto=" + userDto + '}';
     }
 
 }
