@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -29,7 +30,7 @@ public class JsonUtilTest extends TestCase {
     }
 
     public void testJsonToObject() {
-        String jsonString = "{ \"id\": \"USR002\",  \"firstName\": \"James\", \"lastName\": \"Gosling\",  \"email\": \"james@bhinneka.com\"}";
+        String jsonString = "{ \"id\": \"5c418087e86ddac693ffed90\",  \"firstName\": \"James\", \"lastName\": \"Gosling\",  \"email\": \"james@bhinneka.com\"}";
         try {
             User u = JsonUtil.jsonToData(User.class, jsonString.getBytes());
             String expectedFirstName = "James";
@@ -41,7 +42,7 @@ public class JsonUtilTest extends TestCase {
     }
 
     public void testObjectToJson() {
-        User u = new User("USR1", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345");
+        User u = new User(ObjectId.get(), "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345");
 
         String jsonResult = JsonUtil.dataToJson(u);
 
