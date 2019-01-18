@@ -89,7 +89,7 @@ public class User {
     }
 
     public JwtDto toJwtDto(Jwt jwt) {
-        return new JwtDto(jwt, new UserDto(this.id.toString(), this.firstName, this.lastName, this.email, null));
+        return new JwtDto(jwt, new UserDto(this.firstName, this.lastName, this.email, null));
     }
 
     @Override
