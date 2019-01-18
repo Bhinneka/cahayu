@@ -5,6 +5,7 @@
  */
 package com.bhinneka.cahayu.modules.user.usecase;
 
+import com.bhinneka.cahayu.modules.user.model.Jwt;
 import com.bhinneka.cahayu.modules.user.model.User;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface IUserUsecase {
     public User createUser(User u);
 
     public User updateUser(User u, String id);
+
+    public Jwt login(User u);
 
     public User me(String id);
 
