@@ -5,6 +5,7 @@
  */
 package com.bhinneka.cahayu;
 
+import com.bhinneka.cahayu.database.MongoDb;
 import com.bhinneka.cahayu.modules.user.delivery.SparkHandler;
 import com.bhinneka.cahayu.modules.user.model.User;
 import com.bhinneka.cahayu.modules.user.repository.IUserRepository;
@@ -15,9 +16,14 @@ import com.bhinneka.cahayu.filters.Filters;
 import com.bhinneka.cahayu.filters.JwtFilters;
 import com.bhinneka.cahayu.jwt.IJwtService;
 import com.bhinneka.cahayu.jwt.JwtServiceImpl;
+import com.bhinneka.cahayu.modules.user.repository.UserRepositoryMongo;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
+import org.bson.types.ObjectId;
 import spark.Spark;
 
 /**
@@ -44,13 +50,17 @@ public class Server {
         Spark.notFound(new NotFoundRoute());
 
         // user module
-        Map<String, User> userDb = new HashMap<>();
-        userDb.put("USR001", new User("USR001", "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345"));
-        userDb.put("USR002", new User("USR002", "James", "Gosling", "james@bhinneka.com", "123456"));
+        Map<ObjectId, User> userDb = new HashMap<>();
+        userDb.put(new ObjectId("5c418087e86ddac693ffed90"), new User(new ObjectId("5c418087e86ddac693ffed90"), "Wuriyanto", "Musobar", "wuriyanto@bhinneka.com", "12345"));
+        userDb.put(new ObjectId("5c418087e86ddac693ffed70"), new User(new ObjectId("5c418087e86ddac693ffed70"), "James", "Gosling", "james@bhinneka.com", "123456"));
+
+        // mongodb
+        MongoDatabase md = MongoDb.getDb("mongodb://127.0.0.1:27017/cahayu", "cahayu");
+        MongoCollection<User> uc = md.getCollection("users", User.class);
 
         IJwtService jwtService = new JwtServiceImpl(this.privateKey, this.publicKey);
 
-        IUserRepository userRepository = new UserRepositoryInMem(userDb);
+        IUserRepository userRepository = new UserRepositoryMongo(uc);
         IUserUsecase userUsecase = new UserUsecaseImpl(userRepository, jwtService);
 
         //user handler
