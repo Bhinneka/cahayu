@@ -6,7 +6,7 @@
 package com.bhinneka.cahayu.filters;
 
 import com.bhinneka.cahayu.CustomResponse;
-import com.bhinneka.cahayu.EmptyJson;
+import com.bhinneka.cahayu.shared.EmptyJson;
 import com.bhinneka.cahayu.shared.JsonUtil;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Filter;

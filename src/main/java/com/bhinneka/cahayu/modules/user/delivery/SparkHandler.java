@@ -6,7 +6,7 @@
 package com.bhinneka.cahayu.modules.user.delivery;
 
 import com.bhinneka.cahayu.CustomResponse;
-import com.bhinneka.cahayu.EmptyJson;
+import com.bhinneka.cahayu.shared.EmptyJson;
 import com.bhinneka.cahayu.modules.user.dto.UserDto;
 import com.bhinneka.cahayu.modules.user.model.Jwt;
 import com.bhinneka.cahayu.modules.user.model.User;

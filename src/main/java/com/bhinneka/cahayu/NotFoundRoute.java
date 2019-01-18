@@ -5,6 +5,7 @@
  */
 package com.bhinneka.cahayu;
 
+import com.bhinneka.cahayu.shared.EmptyJson;
 import com.bhinneka.cahayu.shared.JsonUtil;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
