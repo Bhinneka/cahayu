@@ -72,9 +72,9 @@ public class SparkHandler implements RouteGroup {
                 Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(
                         HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
             }
-            
+
             Jwt jwt = this.userUsecase.login(u.toModel());
-            if(jwt == null){
+            if (jwt == null) {
                 Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(
                         HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
             }
