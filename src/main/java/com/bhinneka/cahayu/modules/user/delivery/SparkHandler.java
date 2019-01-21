@@ -36,7 +36,8 @@ public class SparkHandler implements RouteGroup {
         return (Request req, Response res) -> {
             res.status(HttpStatus.OK_200);
 
-            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, this.userUsecase.getAllUser(), "get all users"));
+            return JsonUtil.dataToJson(new CustomResponse(
+                    HttpStatus.OK_200, true, this.userUsecase.getAllUser(), "get all users"));
         };
     }
 
@@ -46,7 +47,8 @@ public class SparkHandler implements RouteGroup {
 
             User u = this.userUsecase.me(new ObjectId("5c418087e86ddac693ffed90"));
 
-            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u, "its me"));
+            return JsonUtil.dataToJson(new CustomResponse(
+                    HttpStatus.OK_200, true, u, "its me"));
         };
     }
 
@@ -57,7 +59,8 @@ public class SparkHandler implements RouteGroup {
             byte[] body = req.bodyAsBytes();
             UserDto u = JsonUtil.jsonToData(UserDto.class, body);
             this.userUsecase.createUser(u.toModel());
-            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.CREATED_201, true, u, "add me"));
+            return JsonUtil.dataToJson(new CustomResponse(
+                    HttpStatus.CREATED_201, true, u, "add me"));
         };
     }
 
@@ -66,15 +69,18 @@ public class SparkHandler implements RouteGroup {
             byte[] body = req.bodyAsBytes();
             UserDto u = JsonUtil.jsonToData(UserDto.class, body);
             if (u.getEmail().isEmpty() || u.getPassword().isEmpty()) {
-                Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
+                Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(
+                        HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
             }
             
             Jwt jwt = this.userUsecase.login(u.toModel());
             if(jwt == null){
-                Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
+                Spark.halt(HttpStatus.UNAUTHORIZED_401, JsonUtil.dataToJson(new CustomResponse(
+                        HttpStatus.UNAUTHORIZED_401, false, new EmptyJson(), "invalid username or password")));
             }
 
-            return JsonUtil.dataToJson(new CustomResponse(HttpStatus.OK_200, true, u.toModel().toJwtDto(jwt), "login success"));
+            return JsonUtil.dataToJson(new CustomResponse(
+                    HttpStatus.OK_200, true, u.toModel().toJwtDto(jwt), "login success"));
         };
     }
 
