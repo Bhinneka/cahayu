@@ -17,7 +17,7 @@ import static com.mongodb.client.model.Filters.eq;
  * @param <T>
  * @param <K>
  */
-public class BaseRepositoryMongo<T extends Object, K> implements IBaseRepository<T, K> {
+public abstract class BaseRepositoryMongo<T extends Object, K> implements IBaseRepository<T, K> {
 
     private final MongoCollection<T> collection;
 
