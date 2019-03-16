@@ -61,6 +61,16 @@ public class Redis {
 //        }
 //    }
     
+        // GET
+//    public static void main(String[] args) {
+//        // pass devpass
+//        Redis r = new Redis("localhost", "devpass", 6379, 0, 0, false);
+//        try (Jedis jedis = r.getJedisPool().getResource()){
+//            String value = jedis.get("1");
+//            System.out.println(value);
+//        }
+//    }
+    
     // SET expired
 //    public static void main(String[] args) {
 //        // pass devpass
