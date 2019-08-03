@@ -80,7 +80,7 @@ public class UserUsecaseImpl implements IUserUsecase {
             cal.set(Calendar.MILLISECOND, 0);
 
             Date d = cal.getTime();
-            String jwtToken = jwtService.generate(new CustomClaim(logged.getId().toString(), "bhinneka.com", "my-service", cal.getTime()));
+            String jwtToken = jwtService.generate(new CustomClaim(logged.getId().toString(), "telkomdev.github.io", "my-service", cal.getTime()));
             result = new Jwt("Bearer " + jwtToken);
         }
         return result;
